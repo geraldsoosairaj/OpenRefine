@@ -68,8 +68,8 @@
 
 
   <properties>
-    <java.minversion>17</java.minversion>
-    <java.maxversion>25</java.maxversion>
+    <java.minversion>21</java.minversion>
+    <java.maxversion>26</java.maxversion>
     <jee.path>/</jee.path>
     <jee.port>3333</jee.port>
     <refine.data>/tmp/refine</refine.data>
@@ -77,37 +77,37 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <!-- dependency versions -->
-    <jackson.version>2.21.3</jackson.version>
+    <jackson.version>2.22.2</jackson.version>
     <servlet-api.version>4.0.1</servlet-api.version>
     <butterfly.version>1.2.6</butterfly.version>
-    <slf4j.version>2.0.17</slf4j.version>
-    <log4j.version>2.26.0</log4j.version>
+    <slf4j.version>2.0.18</slf4j.version>
+    <log4j.version>2.26.1</log4j.version>
     <jetty.version>10.0.19</jetty.version>
-    <okhttp.version>5.3.2</okhttp.version>
-    <okio.version>3.17.0</okio.version>
-    <jena.version>5.6.0</jena.version>
+    <okhttp.version>5.5.0</okhttp.version>
+    <okio.version>3.18.1</okio.version>
+    <jena.version>6.2.0</jena.version>
     <poi.version>5.5.1</poi.version>
     <commons-lang3.version>3.20.0</commons-lang3.version>
     <commons-fileupload.version>1.6.0</commons-fileupload.version>
     <commons-collections.version>3.2.2</commons-collections.version>
     <commons-text.version>1.15.0</commons-text.version>
-    <commons-validator.version>1.10.1</commons-validator.version>
+    <commons-validator.version>1.11.0</commons-validator.version>
     <org-jvnet-localizer.version>1.31</org-jvnet-localizer.version>
     <!-- v1.15 of commons-codec is needed for Jena 3.14+ - copied from org.apache.jena:jena:pom -->
-    <commons-codec.version>1.22.0</commons-codec.version>
+    <commons-codec.version>1.22.1</commons-codec.version>
     <commons-compress.version>1.28.0</commons-compress.version>
     <velocity.version>2.4.1</velocity.version>
     <marc4j.version>2.9.6</marc4j.version>
-    <jsoup.version>1.22.2</jsoup.version>
+    <jsoup.version>1.23.1</jsoup.version>
     <odfdom-java.version>0.13.0</odfdom-java.version> <!-- do not update to 0.10.0, see issue #4397 -->
     <vicino.version>1.2.1</vicino.version>
-    <clojure.version>1.12.4</clojure.version>
-    <httpclient5.version>5.6.1</httpclient5.version>
-    <httpcore5.version>5.4.2</httpcore5.version>
+    <clojure.version>1.12.5</clojure.version>
+    <httpclient5.version>5.6.4</httpclient5.version>
+    <httpcore5.version>5.4.3</httpcore5.version>
     <univocity-csv.version>2.9.1</univocity-csv.version>
     <swc-parser-lazy.version>3.1.9</swc-parser-lazy.version>
     <commons-io.version>2.22.0</commons-io.version>
-    <guava.version>33.6.0-jre</guava.version>
+    <guava.version>33.7.1-jre</guava.version>
     <jaxb-api.version>2.3.1</jaxb-api.version>
     <juniversalchardet.version>2.5.0</juniversalchardet.version>
     <testng.version>7.12.0</testng.version>
@@ -121,10 +121,10 @@
     <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
     <maven-resources-plugin.version>3.5.0</maven-resources-plugin.version>
     <exec-maven-plugin.version>3.6.3</exec-maven-plugin.version>
-    <maven-dependency-plugin.version>3.10.0</maven-dependency-plugin.version>
-    <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
-    <surefire.version>3.5.5</surefire.version>
-    <maven-jar-plugin.version>3.5.0</maven-jar-plugin.version>
+    <maven-dependency-plugin.version>3.11.0</maven-dependency-plugin.version>
+    <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
+    <surefire.version>3.5.6</surefire.version>
+    <maven-jar-plugin.version>3.5.1</maven-jar-plugin.version>
     <maven-clean-plugin.version>3.5.0</maven-clean-plugin.version>
     <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
     <maven-deploy-plugin.version>3.1.4</maven-deploy-plugin.version>
@@ -276,18 +276,20 @@
       <plugin>
         <groupId>net.revelc.code.formatter</groupId>
         <artifactId>formatter-maven-plugin</artifactId>
-        <version>2.17.1</version>
+        <version>2.29.0</version>
         <configuration>
           <configFile>${maven.multiModuleProjectDirectory}/IDEs/eclipse/Refine.style.xml</configFile>
           <excludes> <!-- file should not be linted because it was copied from a dependency (sigh) -->
             <exclude>**/Metaphone3.java</exclude>
           </excludes>
+          <!-- removeTrailingWhitespace changed default in 2.18 to true, but we'll leave it as false for now until we do a separate update to remove trailing whitespace -->
+          <removeTrailingWhitespace>false</removeTrailingWhitespace>
         </configuration>
       </plugin>
       <plugin>
         <groupId>net.revelc.code</groupId>
         <artifactId>impsort-maven-plugin</artifactId>
-        <version>1.9.0</version>
+        <version>1.13.0</version>
         <configuration>
           <groups>java.,javax.,*,com.google.refine,org.openrefine</groups>
           <staticGroups>java,*</staticGroups>
@@ -337,18 +339,18 @@
           <autoReleaseAfterClose>true</autoReleaseAfterClose>
         </configuration>
       </plugin>
-        <plugin>
-            <groupId>org.jvnet.localizer</groupId>
-            <artifactId>localizer-maven-plugin</artifactId>
-            <version>${org-jvnet-localizer-plugin.version}</version>
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>generate</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
+      <plugin>
+          <groupId>org.jvnet.localizer</groupId>
+          <artifactId>localizer-maven-plugin</artifactId>
+          <version>${org-jvnet-localizer-plugin.version}</version>
+          <executions>
+              <execution>
+                  <goals>
+                      <goal>generate</goal>
+                  </goals>
+              </execution>
+          </executions>
+      </plugin>
     </plugins>
   </build>
 

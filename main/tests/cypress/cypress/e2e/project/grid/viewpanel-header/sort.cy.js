@@ -16,11 +16,11 @@ describe(__filename, function () {
     cy.get('.viewpanel-sorting a').contains('Sort').click();
     cy.get('.menu-container').contains('Reorder rows permanently').click();
     cy.assertNotificationContainingText('Reorder rows');
-    
+
     // check that it triggered an operation
     cy.get('#or-proj-undoRedo').click();
     cy.get('.history-entry span').should('to.contain', 'Reorder rows');
-    
+
     // after reloading, the grid should still be in the new order
     cy.reload();
     cy.waitForProjectTable();
@@ -53,7 +53,7 @@ describe(__filename, function () {
     // check that it triggered an operation
     cy.get('#or-proj-undoRedo').click();
     cy.get('.history-entry span').should('to.contain', 'Reorder rows');
-    
+
     // after reloading, the grid should still be in the new order
     cy.reload();
     cy.waitForProjectTable();
@@ -87,7 +87,7 @@ describe(__filename, function () {
     // check that it triggered an operation
     cy.get('#or-proj-undoRedo').click();
     cy.get('.history-entry span').should('to.contain', 'Reorder rows');
-    
+
     // after reloading, the grid should still be in the new order
     cy.reload();
     cy.waitForProjectTable();
@@ -97,19 +97,19 @@ describe(__filename, function () {
   it('Ensure it reverses and reorders bool sort', function () {
     cy.loadAndVisitProject('food.sort');
 
-    cy.getCell(0, 'Fat')
-      .trigger('mouseover')
-      .within(() => {
-        cy.get('.data-table-cell-edit').click();
-      });
+    cy.getCell(0, 'Fat').as('fatCell0');
+    cy.get('@fatCell0').trigger('mouseover');
+    cy.get('@fatCell0').within(() => {
+      cy.get('.data-table-cell-edit').click();
+    });
     cy.get('select').select('boolean');
     cy.get('button').contains(new RegExp('Apply', 'g')).click();
 
-    cy.getCell(1, 'Fat')
-      .trigger('mouseover')
-      .within(() => {
-        cy.get('.data-table-cell-edit').click();
-      });
+    cy.getCell(1, 'Fat').as('fatCell1');
+    cy.get('@fatCell1').trigger('mouseover');
+    cy.get('@fatCell1').within(() => {
+      cy.get('.data-table-cell-edit').click();
+    });
     cy.get('select').select('boolean');
     cy.get('button').contains(new RegExp('Apply', 'g')).click();
 
@@ -133,7 +133,7 @@ describe(__filename, function () {
     // check that it triggered an operation
     cy.get('#or-proj-undoRedo').click();
     cy.get('.history-entry span').should('to.contain', 'Reorder rows');
-    
+
     // after reloading, the grid should still be in the new order
     cy.reload();
     cy.waitForProjectTable();
